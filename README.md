@@ -31,7 +31,8 @@ A list to explain some of the choices made. The list follow the same numeration 
 3. Certificate Manager will be used for it
 4. A set of credentials or better if available on the pipeline provider OpenID Connect can be set up. 
 5. Static resources will be stored on S3, if Laravel is used in the backend then support for using external filesystem like for example S3 object storage is already implemented.
-CloudFront will be used for every request to the applications, requests to the path where static files are stored will be forwarded to S3.
+CloudFront will be used for every request to the applications, requests to the path where static files are stored will be forwarded to S3. 
+Requests to the webapp will flow from CloudFront to the Load Balancer and a header token will be used to avoid users connecting directly to the ALB.
 6. Requests to the WebApp will be cached using default behavior excluding the admin - user paths where caching will be disabled or strongly limited using cookies and query.
 7. A secure storage will be used to pass variables to ECS and so to the laravel container.
 8. AWS Backup will be used to perform this task. The backup will be tag based and tags will be placed using IaC.
