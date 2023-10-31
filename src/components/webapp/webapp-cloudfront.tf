@@ -108,7 +108,7 @@ resource "aws_cloudfront_distribution" "webapp_cdn" {
 }
 
 resource "aws_cloudfront_cache_policy" "webapp_cdn_general" {
-  name = "transcritto-webapp-cdn-general-${var.env}"
+  name = "neosperience-test-webapp-cdn-general-${var.env}"
   parameters_in_cache_key_and_forwarded_to_origin {
     cookies_config {
       cookie_behavior = "none"
@@ -126,7 +126,7 @@ resource "aws_cloudfront_cache_policy" "webapp_cdn_general" {
 }
 
 resource "aws_cloudfront_cache_policy" "webapp_cdn_ecs" {
-  name = "transcritto-webapp-cdn-ecs-${var.env}"
+  name = "neosperience-test-webapp-cdn-ecs-${var.env}"
   parameters_in_cache_key_and_forwarded_to_origin {
     cookies_config {
       cookie_behavior = "all" //forward session for the authentication
@@ -144,7 +144,7 @@ resource "aws_cloudfront_cache_policy" "webapp_cdn_ecs" {
 }
 
 resource "aws_cloudfront_cache_policy" "webapp_cdn_ecs_admin" { //cache disabled
-  name = "transcritto-webapp-cdn-ecs-admin-${var.env}"
+  name = "neosperience-test-webapp-cdn-ecs-admin-${var.env}"
   parameters_in_cache_key_and_forwarded_to_origin {
     cookies_config {
       cookie_behavior = "none"
@@ -162,7 +162,7 @@ resource "aws_cloudfront_cache_policy" "webapp_cdn_ecs_admin" { //cache disabled
 }
 
 resource "aws_cloudfront_origin_access_control" "webapp_cdn" {
-  name                              = "transcritto-webapp-${var.env}"
+  name                              = "neosperience-test-webapp-${var.env}"
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "always"
   signing_protocol                  = "sigv4"
