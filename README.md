@@ -24,7 +24,7 @@ Their main concerns at the moment are both scalability to avoid downtime and rea
 
 
 ## Choices
-A list to explain some of the choices. The list follow the same numeration of the specifications list.
+A list to explain some of the choices made. The list follow the same numeration of the specifications list.
 
 1. The webapp will be hosted on ECS using Fargate, so the sizing will be easy to perform. Instead of using a single large container we can choose a smaller size for it and start scaling the WebApp horizontally on multiple containers. For the MySQL database if the average consumption is confirmed a good choice can be to skip credit based instances and pick something like a graviton instance with compatible resources (for example c6g/c7g). Graviton allows for some more price/performance compared to other brand of silicon. For the applications using MySQL there will be little to none differences.
 2. 
@@ -38,3 +38,17 @@ CloudFront will be used for every request to the applications, requests to the p
 9. AWS Cloudwatch Logs will collect logs from every container and a single centralized access point for debugging will be possible.
 10. The ECS cluster will span on multiple AZs inside a single region, RDS database will be set up with multi-az as well.
 11. AWS Web Application Firewall will be set up to allow the configurations of firewall rules like rate limiting based on the requests IP. Notification and alarms can be created based on AWS WAF actions.
+
+## IaC and structure
+I've chosen Terraform as the main IaC tool as it's the tool I'm more proficient with. 
+The project has a structure of multiple terraform components and remote state is used for communications between components.
+A simple Makefile is used to simplify the classic terraform operations on each component.
+
+## Test and deploy 
+I've successfully deployed and tested the setup using a different domain. 
+
+## Missing points
+1. The project being a demo/test is not optimized to be expanded, so I consider this a missing point. Some steps to correct
+this can be to enforce a proper structure to avoid having messy IaC when new requirements arise.
+2. An alarm to send the email alert when the rate limit is exceeded is not up. The WAF ACL is already set up to publish a metric
+so it's just matter of adding the Cloudwatch alarm.
